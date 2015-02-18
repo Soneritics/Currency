@@ -11,5 +11,8 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "squizlabs/php_codesniffer": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"Currency\\": "Soneritics/"}
     }
 }
