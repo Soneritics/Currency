@@ -13,6 +13,6 @@
         "squizlabs/php_codesniffer": "dev-master"
     },
     "autoload": {
-        "psr-4": {"Currency\\": "Soneritics/"}
+        "psr-4": {"Currency\\": "Soneritics/Currency/"}
     }
 }
