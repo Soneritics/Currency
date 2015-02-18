@@ -25,15 +25,31 @@
 namespace Currency;
 
 /**
- * 
+ * Price object. Displays prices in their correct format.
  * @author Jordi Jolink <mail@jordijolink.nl>
  * @since  18-2-2015
  */
 class Price
 {
-    private $currencies = array();
+    /**
+     * A list of Currency objects, with the key of the array being the name
+     * of the currency.
+     * @var array
+     */
+    private $currencies = [];
+
+    /**
+     *Name of the actve currency.
+     * @var string
+     */
     private $activeCurrency;
 
+    /**
+     * Add a currency object to the available currencies list.
+     * @param string $name
+     * @param \Currency\Currency $currency
+     * @return $this
+     */
     public function addCurrency($name, Currency $currency)
     {
         if (empty($this->currencies)) {
@@ -44,6 +60,11 @@ class Price
         return $this;
     }
 
+    /**
+     * Set the active currency for displaying.
+     * @param string $name
+     * @return $this
+     */
     public function setCurrency($name)
     {
         $this->checkCurrencyExistence($name);
@@ -51,11 +72,22 @@ class Price
         return $this;
     }
 
+    /**
+     * Get the name of the active currency.
+     * @return string
+     */
     public function getActiveCurrency()
     {
         return $this->activeCurrency;
     }
 
+    /**
+     * Convert one currency into another.
+     * @param double $value
+     * @param string $from
+     * @param string $to
+     * @return double
+     */
     public function convert($value, $from, $to)
     {
         $this->checkCurrencyExistence($from);
@@ -69,6 +101,13 @@ class Price
             $currencyTo->getConversionRate();
     }
 
+    /**
+     * Show the price, based on the format of a chosen Currency.
+     * @param double $value
+     * @param string $valueCurrencyName
+     * @param string $showCurrencyName
+     * @return string
+     */
     public function show(
         $value,
         $valueCurrencyName = null,
@@ -96,13 +135,18 @@ class Price
 
         return strtr(
             $currencyTo->getFormat(),
-            array(
+            [
                 '{sign}' => $currencyTo->getSign(),
                 '{value}' => $resultFormatted
-            )
+            ]
         );
     }
 
+    /**
+     * Check if a currency with a given name exists in the list.
+     * @param string $name
+     * @throws \Exception
+     */
     private function checkCurrencyExistence($name)
     {
         if (!isset($this->currencies[$name])) {
