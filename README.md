@@ -24,9 +24,9 @@ Currency converting and showing a formatted price label.
 ```php
 $price = (new Price)
     ->addCurrency('euro', new Currency('€', ',', '.'));
-    ->addCurrency('dollar', new Currency('$', '.', ',', 1.1388));
+    ->addCurrency('usd', new Currency('$', '.', ',', 1.1388));
 
 echo $price->show(1) . '<br>'; // € 1,00
-echo $price->show(1, 'euro', 'dollar') . '<br>';
-echo $price->show(1, 'dollar', 'euro') . '<br>';
+echo $price->show(1, 'euro', 'usd') . '<br>'; // € 0.83
+echo $price->show(1, 'usd', 'euro') . '<br>'; // $ 1.39
 ```

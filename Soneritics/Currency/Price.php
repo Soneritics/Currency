@@ -65,7 +65,7 @@ class Price
      * @param string $name
      * @return $this
      */
-    public function setCurrency($name)
+    public function setActiveCurrency($name)
     {
         $this->checkCurrencyExistence($name);
         $this->activeCurrency = $name;
@@ -125,6 +125,8 @@ class Price
             $this->convert($value, $valueCurrencyName, $showCurrencyName),
             2
         );
+
+        $currencyTo = $this->currencies[$valueCurrencyName];
 
         $resultFormatted = number_format(
             $resultRounded,
