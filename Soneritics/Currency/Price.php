@@ -1,4 +1,34 @@
 <?php
+/* 
+ * The MIT License
+ *
+ * Copyright 2014 Soneritics Webdevelopment.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+namespace Currency;
+
+/**
+ * 
+ * @author Jordi Jolink <mail@jordijolink.nl>
+ * @since  18-2-2015
+ */
 class Price
 {
     private $currencies = array();
@@ -26,6 +56,19 @@ class Price
         return $this->activeCurrency;
     }
 
+    public function convert($value, $from, $to)
+    {
+        $this->checkCurrencyExistence($from);
+        $this->checkCurrencyExistence($to);
+
+        $currencyFrom = $this->currencies[$from];
+        $currencyTo = $this->currencies[$to];
+
+        return
+            ($value / $currencyFrom->getConversionRate()) *
+            $currencyTo->getConversionRate();
+    }
+
     public function show(
         $value,
         $valueCurrencyName = null,
@@ -39,17 +82,11 @@ class Price
             $showCurrencyName = $this->activeCurrency;
         }
 
-        $this->checkCurrencyExistence($valueCurrencyName);
-        $this->checkCurrencyExistence($showCurrencyName);
+        $resultRounded = round(
+            $this->convert($value, $valueCurrencyName, $showCurrencyName),
+            2
+        );
 
-        $currencyFrom = $this->currencies[$valueCurrencyName];
-        $currencyTo = $this->currencies[$showCurrencyName];
-
-        $resultUnformatted =
-            ($value / $currencyFrom->getConversionRate()) *
-            $currencyTo->getConversionRate();
-
-        $resultRounded = round($resultUnformatted, 2);
         $resultFormatted = number_format(
             $resultRounded,
             2,
