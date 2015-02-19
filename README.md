@@ -30,8 +30,8 @@ echo $price->convert(1, 'euro', 'usd'); // 1.1388
 echo $price->convert(1, 'usd', 'euro'); // 0.87812
 
 echo $price->show(1); // € 1,00
-echo $price->show(1, 'euro') . '<br>'; // € 1.00
-echo $price->show(1, 'usd') . '<br>'; // $ 1.39
-echo $price->show(1, 'euro', 'usd') . '<br>'; // € 0.88
-echo $price->show(1, 'usd', 'euro') . '<br>'; // $ 1.39
+echo $price->show(1, 'euro'); // € 1.00
+echo $price->show(1, 'usd'); // $ 1.39
+echo $price->show(1, 'euro', 'usd'); // € 0.88
+echo $price->show(1, 'usd', 'euro'); // $ 1.39
 ```
