@@ -59,6 +59,19 @@ class PriceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test for a wrong conversion rate.
+     * @expectedException Exception
+     */
+    public function testConvertException()
+    {
+        $price = (new Currency\Price)
+            ->addCurrency('euro', new Currency\Currency('€'));
+
+        $this->setExpectedException('\Exception');
+        $price->convert(1, 'euro', 'not-existing');
+    }
+
+    /**
      * Test the show function.
      */
     public function testShow()
@@ -68,6 +81,8 @@ class PriceTest extends PHPUnit_Framework_TestCase
             ->addCurrency('usd', new Currency\Currency('$', '.', ',', 1.2, '{sign}{value}'));
 
         $this->assertEquals($price->show(1), '€ 1,00');
+        $this->assertEquals($price->show('1'), '€ 1,00');
+        $this->assertEquals($price->show('1.5'), '€ 1,50');
         $this->assertEquals($price->show(1, 'euro', 'usd'), '€ 1,20');
         $this->assertEquals($price->show(1, 'usd'), '$0.83');
     }
