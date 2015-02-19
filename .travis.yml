@@ -7,4 +7,4 @@ php:
 script:
 - vendor/bin/phpunit test/
 - vendor/bin/phpcs --standard=PSR1,PSR2 Soneritics/Currency/
-- php vendor/bin/coveralls
+- php vendor/bin/coveralls Soneritics/
