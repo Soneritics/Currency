@@ -10,7 +10,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "dev-master"
+        "squizlabs/php_codesniffer": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-4": {"Currency\\": "Soneritics/Currency/"}
