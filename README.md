@@ -1,6 +1,7 @@
 # Currency #
 
 [![Build Status](https://api.travis-ci.org/Soneritics/Currency.svg?branch=master)](https://travis-ci.org/Soneritics/Currency)
+[![Coverage Status](https://coveralls.io/repos/Soneritics/Currency/badge.svg)](https://coveralls.io/r/Soneritics/Currency)
 ![License](http://img.shields.io/badge/license-MIT-green.svg)
 
 by
